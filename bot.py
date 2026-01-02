@@ -85,6 +85,41 @@ async def on_ready():
 # --- Mesaj fix live ---
 async def update_boss_message():
     await client.wait_until_ready()
+    print("🟢 update_boss_message PORNIT")
+
+    channel = client.get_channel(CHANNEL_ID)
+    print("🟢 Canal gasit:", channel)
+
+    msg = None
+    try:
+        with open(MESSAGE_ID_FILE, "r") as f:
+            msg_id = int(f.read())
+            msg = await channel.fetch_message(msg_id)
+            print("🟢 Mesaj existent gasit:", msg.id)
+    except Exception as e:
+        print("⚠️ Nu exista mesaj salvat sau fetch esuat:", e)
+
+    if not msg:
+        msg = await channel.send("⏳ Timere Bossi în curs de încărcare...")
+        print("🟢 Mesaj NOU creat:", msg.id)
+        with open(MESSAGE_ID_FILE, "w") as f:
+            f.write(str(msg.id))
+
+    while True:
+        try:
+            now = now_ro()
+            text = "⏳ **Boss Timers (RO)** ⏳\n\n"
+            for b in bosses:
+                ns = next_spawn(b)
+                text += f"{b['name']} → {ns.strftime('%H:%M')} (în {fmt(ns-now)})\n"
+            await msg.edit(content=text)
+            print("🔄 Mesaj editat la", now.strftime("%H:%M:%S"))
+        except Exception as e:
+            print("❌ EROARE la editare:", e)
+
+        await asyncio.sleep(30)
+
+    await client.wait_until_ready()
     channel = client.get_channel(CHANNEL_ID)
 
     # Încearcă să încarce mesajul existent
@@ -162,4 +197,5 @@ def run():
     app.run(host='0.0.0.0', port=8080)
 
 Thread(target=run).start()
+
 
