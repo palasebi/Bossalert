@@ -22,7 +22,7 @@ DEFAULT_BOSSES = [
     {"name": "👑 Regina de Aur", "respawn": 2, "last": "10:10"},
     {"name": "😈 Bossi Malefici", "respawn": 2, "last": "10:10"},
     {"name": "🔥 Alastor", "respawn": 4, "last": "08:10"},
-    {"name": "⚔️ World Boss PVP", "respawn": 6, "last": "06:12"},
+    {"name": "⚔️ World Boss PVP", "respawn": 6, "last": "06:02"},
 ]
 
 def load_bosses():
@@ -114,3 +114,4 @@ async def checker():
 
 bosses = load_bosses()
 client.run(TOKEN)
+
