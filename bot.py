@@ -21,7 +21,7 @@ client = discord.Client(intents=intents)
 DEFAULT_BOSSES = [
     {"name": "👑 Regina de Aur", "respawn": 2, "last": "10:10"},
     {"name": "😈 Bossi Malefici", "respawn": 2, "last": "10:10"},
-    {"name": "🔥 Alastor", "respawn": 4, "last": "08:10"},
+    {"name": "🔥 Alastor", "respawn": 4, "last": "10:10"},
     {"name": "⚔️ World Boss PVP", "respawn": 6, "last": "06:02"},
 ]
 
@@ -197,5 +197,6 @@ def run():
     app.run(host='0.0.0.0', port=8080)
 
 Thread(target=run).start()
+
 
 
